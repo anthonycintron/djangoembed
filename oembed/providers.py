@@ -534,13 +534,13 @@ class DjangoProvider(BaseProvider):
         if self.resource_type == 'photo' and self.get_image(obj):
             self.resize_photo(obj, mapping, maxwidth, maxheight)
         elif self.resource_type in ('video', 'rich', 'photo'):
-            width, height = size_to_nearest(
+            self.width, self.height = size_to_nearest(
                 maxwidth,
                 maxheight,
                 self._meta.valid_sizes,
                 self._meta.force_fit
             )
-            mapping.update(width=width, height=height)
+            mapping.update(width=self.width, height=self.height)
         
         # create a thumbnail
         if self.get_image(obj):
